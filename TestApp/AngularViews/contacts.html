@@ -1,0 +1,66 @@
+﻿<div ng-controller="contactController" ng-cloak="" layout="row" layout-align="center center" ng-app="contacts_app">
+
+    <div flex-gt-sm="60" flex-gt-md="50">
+        <md-toolbar layout="row" layout-sm="column" layout-align="center center" class="md-hue-3">
+            <div class="md-toolbar-tools">
+                <span class="md-display-1">Contacts</span>
+            </div>
+            <md-button class="md-raised md-primary" ng-click="showSingleContact($event)" aria-label="Add new contact">Add new</md-button>
+        </md-toolbar>
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Filters</span>
+                </md-card-title-text>
+            </md-card-title>
+
+            <md-card-content>
+                <div layout-gt-sm="row">
+                    <md-input-container flex="">
+                        <label>Query</label>
+                        <input placeholder="Name or Email or Phone" type="text" ng-model="filter.q" ng-change="updateData(true)">
+                    </md-input-container>
+                    <dictionary-field required="false" on-changed="newSearch" dic-type="'gender'" field="filter.genderId" field-label="'Gender'"></dictionary-field>
+
+                    <dictionary-field on-changed="newSearch" dic-type="'company'" field="filter.companyId" field-label="'Company'"></dictionary-field>
+
+                    <dictionary-field on-changed="newSearch" dic-type="'job_title'" field="filter.jobTitleId" field-label="'Job Title'"></dictionary-field>
+                </div>
+                <div layout-gt-sm="row" layout-align="end center">
+                    <md-button class="md-raised md-primary" ng-disabled="!filter" ng-click="clearFilter()">Clear</md-button>
+                </div>
+            </md-card-content>
+        </md-card>
+        <md-content class="virtualInfiniteScroll">
+            <!--<md-virtual-repeat-container id="vertical-container" flex="">
+                <div md-virtual-repeat="item in contactItems" md-on-demand="" class="md-3-line" flex="">
+                    <img ng-src="{{item.avatarUrl}}" class="md-avatar" alt="{{item.lastName}}">
+                    <div class="md-li
+st-item-text" layout="column">
+                        <h3>{{ item.firstName + " " + item.lastName }}</h3>
+                        <h4>{{ item.phone }}</h4>
+                        <p>{{ item.email }}</p>
+                    </div>
+                    <md-button class="md-raised md-primary" ng-click="showSingleContact($event, item.id, $index )">Edit</md-button>
+                    <md-button class="md-raised md-warn" ng-click="showDeleteConfirm($event,item.id, $index)">Remove</md-button>
+                </div>
+            </md-virtual-repeat-container>-->
+            <md-list flex="">
+                <md-list-item class="md-3-line" ng-repeat="item in contacts" ng-click="null">
+                    <img ng-src="{{item.avatarUrl}}" class="md-avatar" alt="{{item.lastName}}">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{ item.firstName + " " + item.lastName }}</h3>
+                        <h4>{{ item.phone }}</h4>
+                        <p>{{ item.email }}</p>
+                    </div>
+                    <md-button class="md-raised md-primary" ng-click="showSingleContact($event, item.id, $index )">Edit</md-button>
+                    <md-button class="md-raised md-warn" ng-click="showDeleteConfirm($event,item.id, $index)">Remove</md-button>
+                </md-list-item>
+            </md-list>
+            <div layout="row" layout-align="space-between center">
+                <md-button class="md-raised md-primary" ng-disabled="currentPage === 0" ng-click="prevPage()">Prev</md-button>
+                <md-button class="md-raised md-primary" ng-disabled="(currentPage+1)*countPerPage > totalCount" ng-click="nextPage()">Next</md-button>
+            </div>
+        </md-content>
+    </div>
+</div>

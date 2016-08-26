@@ -1,0 +1,78 @@
+﻿<md-dialog aria-label="Create contact">
+    <div class="contactForm">
+        
+        <form name="contactForm" ng-cloak>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2 ng-if="contactId !== undefined">Edit contact</h2>
+                    <h2 ng-if="contactId === undefined">Create contact</h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="cancel()">
+                        <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+
+            <md-dialog-content>
+
+                <md-content layout-padding="">
+                    <div layout-gt-sm="row">
+                        <img ng-src="{{contact.avatarUrl}}" class="md-avatar" alt="{{contact.lastName}}">
+                    </div>
+                    <div layout-gt-sm="row">
+                        <md-input-container class="md-block" flex-gt-sm="">
+                            <label>First name</label>
+                            <input required="" name="firstName" ng-model="contact.firstName">
+                            <div ng-messages="contactForm.firstName.$error">
+                                <div ng-message="required">First name is required.</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm="">
+                            <label>Last name</label>
+                            <input ng-model="contact.lastName" name="lastName" required="">
+                            <div ng-messages="contactForm.lastName.$error">
+                                <div ng-message="required">Last name is required.</div>
+                                <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div layout-gt-xs="row">
+                        <md-input-container class="md-block" flex-gt-xs="">
+                            <label>Phone</label>
+                            <input name="phone" ng-model="contact.phone" ng-pattern="/^[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}$/">
+                            <div ng-messages="contactForm.phone.$error">
+                                <div ng-message="pattern">(###) ###-#### - Please enter a valid phone number.</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container class="md-block" flex-gt-sm="">
+                            <label>Email</label>
+                            <input name="email" ng-model="contact.email" required="" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/">
+                            <div ng-messages="contactForm.email.$error">
+                                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                    Your email must be between 10 and 100 characters long and look like an e-mail address.
+                                </div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <dictionary-field required="true" dic-type="'gender'" field="contact.genderId" field-label="'Gender'"></dictionary-field>
+
+                    <dictionary-field required="true" dic-type="'company'" field="contact.companyId" field-label="'Company'"></dictionary-field>
+
+                    <dictionary-field dic-type="'job_title'" field="contact.jobTitleId" field-label="'Job Title'"></dictionary-field>
+
+                </md-content>
+            </md-dialog-content>
+
+            <md-dialog-actions layout="row">
+                <span flex></span>
+                <md-button ng-click="cancel()">
+                    Cancel
+                </md-button>
+                <md-button ng-click="submit()">
+                    Submit
+                </md-button>
+            </md-dialog-actions>
+        </form>
+    </div>
+</md-dialog>

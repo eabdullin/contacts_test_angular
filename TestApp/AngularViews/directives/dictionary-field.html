@@ -1,0 +1,9 @@
+﻿<md-input-container>
+    <label>{{fieldLabel}}</label>
+    <md-select ng-model="field" ng-change="onChanged()" ng-required="required">
+        <md-option ng-value="null"><em>None</em></md-option>
+        <md-option ng-repeat="item in allItems" ng-value="item.id">
+            {{item.value}}
+        </md-option>
+    </md-select>
+</md-input-container>
